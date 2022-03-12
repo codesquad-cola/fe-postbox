@@ -1,46 +1,41 @@
 const { body } = document;
 
-let find = false;
-let target = null;
-let targets = [];
-
-const init = () => {
-  find = false;
-  target = null;
-  targets = [];
-};
-
-const DFS = (element, className) => {
-  if (find) return;
+const DFS = (element, className, targetInfo) => {
+  if (targetInfo.find) return;
   if (element.classList.contains(className)) {
-    find = true;
-    target = element;
+    targetInfo.find = true;
+    targetInfo.target = element;
     return;
   }
 
   [...element.children].forEach((child) => {
-    DFS(child, className);
+    DFS(child, className, targetInfo);
   });
 };
 
-const fullDFS = (element, className) => {
+const fullDFS = (element, className, targets) => {
   if (element.classList.contains(className)) {
     targets.push(element);
   }
 
   [...element.children].forEach((child) => {
-    fullDFS(child, className);
+    fullDFS(child, className, targets);
   });
 };
 
 export const getElementByClassName = (className, base = body) => {
-  init();
-  DFS(base, className);
-  return target;
+  const targetInfo = {
+    find: false,
+    target: null,
+  };
+
+  DFS(base, className, targetInfo);
+  return targetInfo.target;
 };
 
 export const getElementsByClassName = (className, base = body) => {
-  init();
-  fullDFS(base, className);
+  let targets = [];
+
+  fullDFS(base, className, targets);
   return targets;
 };
