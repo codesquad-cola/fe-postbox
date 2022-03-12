@@ -1,8 +1,8 @@
 import { RootVillage } from './Village.js';
-import { range } from '../utils/utils.js';
+import { getNumberInRange } from '../utils/utils.js';
 
 const isChanceLowerThan = (x) => {
-  if (!parseInt(x) || x < 1 || x > 100) return false;
+  if (!parseInt(x) || x < 1 || x > 100) throw 'Unexpected parameter';
 
   const random = Math.random(); // 0 ~ 1
   if (random <= parseInt(x) * 0.01) return true;
@@ -24,8 +24,8 @@ export const getData = () => {
       if (isChanceLowerThan(chance)) return {};
 
       const props = {
-        width: range(minWidth, maxWidth + 1),
-        height: range(minHeight, maxHeight + 1),
+        width: getNumberInRange(minWidth, maxWidth + 1),
+        height: getNumberInRange(minHeight, maxHeight + 1),
       };
 
       const vil = new RootVillage({ props, sectionHeight, sectionWidth });

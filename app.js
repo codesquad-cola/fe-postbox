@@ -1,11 +1,11 @@
 const { RootVillage } = require('./src/models/Village.js');
-const { range } = require('./src/utils/utils.js');
+const { getNumberInRange } = require('./src/utils/utils.js');
 const express = require('express');
 const app = express();
 const port = 3000;
 
 const isChanceLowerThan = (x) => {
-  if (!parseInt(x) || x < 1 || x > 100) return false;
+  if (!parseInt(x) || x < 1 || x > 100) throw 'Unexpected parameter';
 
   const random = Math.random(); // 0 ~ 1
   if (random <= parseInt(x) * 0.01) return true;
@@ -28,14 +28,13 @@ app.get('/api/villages', (req, res) => {
   const length = 4;
 
   RootVillage.initNameList();
-
   const rootVillages = Array.from({ length }) //
     .map(() => {
       if (isChanceLowerThan(chance)) return {};
 
       const props = {
-        width: range(minWidth, maxWidth + 1),
-        height: range(minHeight, maxHeight + 1),
+        width: getNumberInRange(minWidth, maxWidth + 1),
+        height: getNumberInRange(minHeight, maxHeight + 1),
       };
 
       const vil = new RootVillage({ props, sectionHeight, sectionWidth });
