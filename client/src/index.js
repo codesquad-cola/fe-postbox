@@ -8,6 +8,7 @@ import { createRootVillage } from './views/village.js';
 import { getData } from './fakeServer/data.js';
 
 const demo = true;
+const apiURL = 'http://localhost:3000/api/villages';
 
 const searchVillagesWithPostbox = (rootVillages) => {
   const result = [];
@@ -112,7 +113,7 @@ const main = () => {
     return;
   }
 
-  fetch('http://localhost:3000/api/villages')
+  fetch(apiURL)
     .then((res) => res.json())
     .then((rootVillages) => {
       renderVillages(rootVillages);
