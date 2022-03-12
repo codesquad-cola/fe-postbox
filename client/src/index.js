@@ -1,4 +1,4 @@
-import { range, delay, sort } from './utils/utils.js';
+import { getNumberInRange, delay, sort } from './utils/utils.js';
 import {
   getElementByClassName,
   getElementsByClassName,

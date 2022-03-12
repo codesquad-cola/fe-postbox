@@ -13,7 +13,7 @@ export const addClass = (className, element) => {
   element.classList.add(className);
 };
 
-export const range = (from, to) => {
+export const getNumberInRange = (from, to) => {
   const diff = Math.abs(to - from);
   return (Math.random() * diff + from) >> 0;
   // from ~ to-1

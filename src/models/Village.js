@@ -1,4 +1,4 @@
-const { range } = require('../utils/utils.js');
+const { getNumberInRange } = require('../utils/utils.js');
 
 class Village {
   static nameList;
@@ -26,11 +26,11 @@ class Village {
     //마을의 크기는 100부터 1/2 width까지
     //높이는 50부터 1/2 height까지
     //width가 100보다 작거나, height가 50보다 작으면 child를 생성하지 않음
-    const count = range(1, 3);
+    const count = getNumberInRange(1, 3);
     for (let i = 0; i < count; i++) {
       if (this.width <= 150 || this.height <= 150) break;
-      const width = range(100, (this.width / 2) >> 0);
-      const height = range(100, (this.height / 2) >> 0);
+      const width = getNumberInRange(100, (this.width / 2) >> 0);
+      const height = getNumberInRange(100, (this.height / 2) >> 0);
       this.children.push(new Village({ width, height, parent: this }));
     }
   }
@@ -40,9 +40,9 @@ class Village {
   }
 
   initPostbox() {
-    const chance = range(0, 101);
+    const chance = getNumberInRange(0, 101);
     if (chance < 20) {
-      const size = range(1, 1000);
+      const size = getNumberInRange(1, 1000);
       this.postbox.exist = true;
       this.postbox.size = size;
       return;
@@ -50,7 +50,7 @@ class Village {
   }
 
   initName() {
-    const index = range(0, Village.nameList?.length);
+    const index = getNumberInRange(0, Village.nameList?.length);
     this.name = Village.nameList.splice(index, 1)[0];
   }
 }
@@ -70,8 +70,8 @@ class RootVillage extends Village {
     //xPon 0~(sectionWidth-width)
     //yPon 0~(sectionHeight-height)
     const { width, height, sectionWidth, sectionHeight } = this;
-    const xPos = range(0, sectionWidth - width);
-    const yPos = range(0, sectionHeight - height);
+    const xPos = getNumberInRange(0, sectionWidth - width);
+    const yPos = getNumberInRange(0, sectionHeight - height);
     this.xPos = xPos;
     this.yPos = yPos;
   }
